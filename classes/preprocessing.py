@@ -1,20 +1,16 @@
-from cv2 import displayOverlay
 import pandas as pd
 import os
 import numpy as np
-import plotly.subplots as sp
-import plotly.graph_objects as go
-from ipywidgets import Dropdown, interact, Output
-from IPython.display import display
-import math
 import pickle
+from classes.plotting import Plotting
 
 
 
-class CalciMetrics:
+class CalciMetrics(Plotting):
     def __init__(self, path_to_data):
         self.trial_data_dict={}
         self.path_to_data=path_to_data
+        #self.plotter=Plotting(self)
 
     def import_data(self, first_col_frames=True, frames_to_seconds=True, fps_rate=1, background_sub=True, background_col=-1):
         file_names=[f for f in os.listdir(self.path_to_data) if f.endswith('.csv')]
@@ -33,8 +29,9 @@ class CalciMetrics:
                 self.x_label='Frames'
 
             if background_sub:
-                import_df=import_df.sub(import_df[background_col])
-                import_df.drop(columns=import_df.columns[background_col])
+                background=import_df.iloc[:,background_col]#.to_list()
+                import_df=import_df.sub(background, axis=0)
+                import_df.drop(columns=import_df.columns[background_col], inplace=True)
 
             
             self.trial_data_dict[ii]=import_df
@@ -51,30 +48,6 @@ class CalciMetrics:
 
         df=(df-f0)/f0
 
-    def interactive_plot(self):
-        self.fig = go.FigureWidget()
-        self.df_dropdown = Dropdown(options=self.trial_data_dict.keys())
-        self.df_dropdown.observe(self.update_figure, 'value')
-        display(self.df_dropdown)
-        self.update_figure(None)
-        display(self.fig)
-
-    def update_figure(self, change):
-        df_key = self.df_dropdown.value
-        num_cols = len(self.trial_data_dict[df_key].columns)
-        num_rows = math.ceil(num_cols / 5)
-        subplot_titles = tuple(self.trial_data_dict[df_key].columns)
-        new_fig = sp.make_subplots(rows=num_rows, cols=5, subplot_titles=subplot_titles)
-        for idx, col in enumerate(self.trial_data_dict[df_key].columns, start=1):
-            row = math.ceil(idx / 5)
-            col_position = idx if idx <= 5 else idx - (5 * (row - 1))
-            new_fig.add_trace(go.Scatter(y=self.trial_data_dict[df_key][col], showlegend=False), row=row, col=col_position)
-        new_fig.update_layout(height=400*num_rows, width=800, title_text=df_key)
-        with self.fig.batch_update():
-            self.fig.data = []
-            self.fig.layout = new_fig.layout
-            for trace in new_fig.data:
-                self.fig.add_trace(trace)
 
     def exclude_rois(self, excluded_rois_dict):
 
