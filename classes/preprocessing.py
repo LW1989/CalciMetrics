@@ -2,11 +2,11 @@ import pandas as pd
 import os
 import numpy as np
 import pickle
-from classes.plotting import Plotting
 
 
 
-class CalciMetrics(Plotting):
+
+class CalciMetrics:
     def __init__(self, path_to_data):
         self.trial_data_dict={}
         self.path_to_data=path_to_data
