@@ -4,8 +4,6 @@ import numpy as np
 import pickle
 
 
-
-
 class CalciMetrics:
     def __init__(self, path_to_data):
         self.trial_data_dict={}
@@ -19,7 +17,7 @@ class CalciMetrics:
         for i, ii in zip(list_of_paths, file_names):
             import_df=pd.read_csv(i)
             if first_col_frames:
-                import_df.set_index(import_df.columns[0], inplace=True)
+                #import_df.set_index(import_df.columns[0], inplace=True)
                 import_df.drop(columns=import_df.columns[0], inplace=True)
             
             if frames_to_seconds:
@@ -36,17 +34,25 @@ class CalciMetrics:
             
             self.trial_data_dict[ii]=import_df
         
-    def dff_calc(self, df, method, percentile=0.2, first_frame=None, last_frame=None ):
-        if method=='median':
-            f0=df.median()
-        elif method=='percentile':
-            f0=df.quantile(percentile)
-        elif method=='first_frame':
-            f0=df.iloc[0,:]
-        elif method=='multi_frame':
-            f0=df.iloc[first_frame:last_frame, :]
+    def dff_calc(self, method='percentile', percentile=0.2, first_frame=None, last_frame=None):
 
-        df=(df-f0)/f0
+        if method not in ['median', 'percentile', 'first_frame', 'multi_frame']:
+            print('Wrong method defined. Please use one of the following methods: median, percentile, first_frame, multi_frame')
+            return
+
+        for i in self.trial_data_dict:
+            df=self.trial_data_dict[i]
+            if method=='median':
+                f0=df.median()
+            elif method=='percentile':
+                f0=df.quantile(percentile)
+            elif method=='first_frame':
+                f0=df.iloc[0,:]
+            elif method=='multi_frame':
+               f0=df.iloc[first_frame:last_frame, :]
+
+            df=(df-f0)/f0
+            self.trial_data_dict[i]=df
 
 
     def exclude_rois(self, excluded_rois_dict):
