@@ -24,15 +24,11 @@ pip install numpy pandas matplotlib scipy
 
 After installing the dependencies, clone the repository:
 
-bash
+```terminal
+ [https://github.com/<YourUsername>/CalciMetrics.git](https://github.com/LW1989/CalciMetrics)
+```
 
-git clone https://github.com/<YourUsername>/CalciMetrics.git
-
-Replace <YourUsername> with your GitHub username. You can then navigate to the cloned directory and import the library in your Python scripts.
-Contributing
-
-Contributions to CalciMetrics are welcome! Please read our contributing guidelines and code of conduct before you start.
-License
+## License
 
 CalciMetrics is licensed under the terms of the MIT license. See the LICENSE file for more details.
 
