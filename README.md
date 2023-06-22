@@ -1,29 +1,26 @@
 # CalciMetrics
 
 Welcome to CalciMetrics, a Python library dedicated to the analysis and visualization of calcium imaging data. This tool is designed to assist with the processing of fluorescence microscopy data, specifically relating to the analysis of calcium indicators. It provides a collection of methods to perform data preprocessing, smoothing, detrending, and visualization.
-Features
 
-    Data Loading and Preprocessing: Load and preprocess data from different formats, normalizing and preparing it for further analysis.
+## Features
 
-    Heatmap Visualization: Generate a heatmap of your calcium imaging data. This provides a visual representation of the changes in fluorescence over time for each region of interest (ROI). You can also optionally mark stimulus start and end times on the heatmap.
+1. Data Loading and Preprocessing: Load and preprocess data from different formats, normalizing and preparing it for further analysis.
+2. Heatmap Visualization: Generate a heatmap of your calcium imaging data. This provides a visual representation of the changes in fluorescence over time for each region of interest (ROI). You can also optionally mark stimulus start and end times on the heatmap.
+3. Gaussian Smoothing: Apply a Gaussian smoothing function to reduce noise in your data. This function includes a visualization tool that displays the raw and smoothed data side-by-side, and also shows the Gaussian kernel used for smoothing.
+4. Detrending: Apply either an exponential decay or a linear detrending method to correct for fluorescence decay or linear trends in the baseline. This function also includes a visualization tool to compare the raw, smoothed, and detrended data.
 
-    Gaussian Smoothing: Apply a Gaussian smoothing function to reduce noise in your data. This function includes a visualization tool that displays the raw and smoothed data side-by-side, and also shows the Gaussian kernel used for smoothing.
+## Features To Be Added In The Future
 
-    Detrending: Apply either an exponential decay or a linear detrending method to correct for fluorescence decay or linear trends in the baseline. This function also includes a visualization tool to compare the raw, smoothed, and detrended data.
+1. Calcium Imaging Analysis for Astrocytes: In the future, CalciMetrics will provide a comprehensive suite of analysis tools for studying calcium imaging in astrocytes. This includes tools for identifying and quantifying astrocyte calcium events, as well as tools for analyzing the spatial and temporal dynamics of these events.
+2. Calcium Event Probability: This feature will estimate the likelihood of a calcium event occurring at any given time point, based on the observed data. This is a powerful tool for understanding the temporal dynamics of calcium signaling, and can provide insights into the underlying biological processes driving these events.
 
-Features To Be Added In The Future
-
-    Calcium Imaging Analysis for Astrocytes: In the future, CalciMetrics will provide a comprehensive suite of analysis tools for studying calcium imaging in astrocytes. This includes tools for identifying and quantifying astrocyte calcium events, as well as tools for analyzing the spatial and temporal dynamics of these events.
-
-    Calcium Event Probability: This feature will estimate the likelihood of a calcium event occurring at any given time point, based on the observed data. This is a powerful tool for understanding the temporal dynamics of calcium signaling, and can provide insights into the underlying biological processes driving these events.
-
-Installation
+## Installation
 
 To install CalciMetrics, clone the repository and use Python to run the scripts. Please note that CalciMetrics depends on several Python libraries, including numpy, pandas, matplotlib, and scipy. Make sure these are installed in your environment. If you're using pip, you can install these dependencies with:
 
-bash
-
+```terminal
 pip install numpy pandas matplotlib scipy
+```
 
 After installing the dependencies, clone the repository:
 
